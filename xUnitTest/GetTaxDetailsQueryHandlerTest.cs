@@ -83,8 +83,7 @@ namespace xUnitTest
 
             _executorFactory.Setup(m => m.FetchTaxDetailsFromDB()).Throws(new System.Exception());
 
-            //Mocking the procedure execution
-            //_executorFactory.Setup(m => m.GetDbExecutor().Query<PartnerDetails>(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<CommandType>())).Throws(new System.Exception());
+            //Mocking the procedure execution            
             _mockHandler = new GetTaxDetailsQueryHandler(logger.Object, _executorFactory.Object);
             _mockQuery = new GetTaxDetailsQuery("Vilnius", "2020-01-01");
             _exeResult = _mockHandler.Handle(_mockQuery, new CancellationToken()).Result;
