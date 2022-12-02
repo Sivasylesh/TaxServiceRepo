@@ -88,7 +88,7 @@ namespace TaxService.QueryHandlers
         private decimal CheckVilniusDailyTaxes(DateTime date, List<TaxDetails> taxDetails)
         {
             var individualDates = taxDetails.Where(x => x.Municipality?.ToUpper() == "VILNIUS" && x.TaxType == "Daily").Select(y => y.IndividualDates)?.FirstOrDefault();
-            var datesList = individualDates?.Split(',')?.ToList();
+            var datesList = individualDates?.Split(',')?.ToList() ?? new List<string>();
             foreach (var taxdate in datesList)
             {
                 if (date.Equals(DateTime.Parse(taxdate)))
