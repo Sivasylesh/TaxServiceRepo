@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using TaxService.Queries;
 
@@ -19,13 +20,13 @@ namespace TaxService.Controllers
             _logger = logger;
         }
 
-        [HttpGet,Route("get")]
-        public async Task<IActionResult> GetTaxDetails(string municipality, string date)
+        [HttpGet,Route("getdetails")]
+        public async Task<IActionResult> GetTaxDetails([FromQuery] string municipality, [FromQuery] string date)
         {
-            _logger.LogInformation("Entered GetTaxDetails Api");
+            _logger.LogInformation($"Entered GetTaxDetails Api");
             var query = new GetTaxDetailsQuery(municipality,date);
             var result = await _mediator.Send(query);
-            _logger.LogInformation("Finished GetTaxDetails Api");
+            _logger.LogInformation($"Finished GetTaxDetails Api with Response: {JsonConvert.SerializeObject(result)}");
             return Ok(result);
         }
     }
